@@ -9,8 +9,6 @@ router.post(
     "/tablas",
     validate(ValidarIngreso,{},{}),
     async (req:Request, res:Response, next:NextFunction) =>{
-        console.log("guardar datos")
-        console.log(validate(ValidarIngreso,{},{}))
         res.json({datos:"datos"})
         return next();
     }
@@ -19,9 +17,8 @@ router.post(
 router.get(
     "/mostrar",
     async (req:Request, res:Response, next:NextFunction) =>{
-        console.log("mostrar datos")
         let datos=obtener_tablas(req,res);
-        //res.json({datos:datos})
+        res.json({datos:(await datos).rows})
         return next();
     }
 )

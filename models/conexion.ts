@@ -1,5 +1,7 @@
 import {Pool, PoolConfig} from "pg";
+import dotenv from "dotenv"
 
+dotenv.config();
 var config:PoolConfig={};
 
 try {
@@ -14,4 +16,6 @@ try {
     console.log(error);
 }
 
-export var pool=new Pool(config) 
+var pool=new Pool(config) 
+
+export default pool;

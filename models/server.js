@@ -8,7 +8,8 @@ const routes_1 = __importDefault(require("../modules/routes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
-        this.port = process.env.PORT || "3000";
+        this.port = process.env.PORT || "3001";
+        console.log(process.env.PASSWORD);
         (0, routes_1.default)(this.app);
     }
     listen() {

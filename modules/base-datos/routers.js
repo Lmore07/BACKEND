@@ -15,15 +15,12 @@ const controller_1 = require("./controller");
 const validation_1 = require("./validation");
 const router = (0, express_1.Router)();
 router.post("/tablas", (0, express_validation_1.validate)(validation_1.ValidarIngreso, {}, {}), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("guardar datos");
-    console.log((0, express_validation_1.validate)(req.body));
     res.json({ datos: "datos" });
     return next();
 }));
 router.get("/mostrar", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("mostrar datos");
     let datos = (0, controller_1.obtener_tablas)(req, res);
-    //res.json({datos:datos})
+    res.json({ datos: (yield datos).rows });
     return next();
 }));
 exports.default = router;
