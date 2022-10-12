@@ -14,15 +14,19 @@ const express_validation_1 = require("express-validation");
 const controller_1 = require("./controller");
 const validation_1 = require("./validation");
 const router = (0, express_1.Router)();
-router.post("/inserta-fila", (0, express_validation_1.validate)(validation_1.ValidarIngreso, {}, {}), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var dato = (0, controller_1.inserta_fila)(req, res);
-    console.log(dato);
+router.post("/inserta", (0, express_validation_1.validate)(validation_1.ValidarIngreso, {}, {}), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var dato = (0, controller_1.insertaFila)(req, res);
     res.json((yield dato));
     return next();
 }));
 router.get("/mostrar", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    let datos = (0, controller_1.obtener_tablas)(req, res);
-    res.json({ datos: (yield datos).rows });
+    let datos = (0, controller_1.obtenerTablas)(req, res);
+    res.json((yield datos).rows);
+    return next();
+}));
+router.post("/insertar-tabla-columnas", (0, express_validation_1.validate)(validation_1.ValidarInsercion, {}, {}), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    let datos = (0, controller_1.creaTablaColumnas)(req, res);
+    res.json((yield datos));
     return next();
 }));
 exports.default = router;
