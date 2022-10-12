@@ -1,8 +1,9 @@
 import {Joi} from "express-validation"
-import {validString} from "./utilValidation"
+import {validNumber, validString} from "./utilValidation"
 
 export const ValidarIngreso={
     body:Joi.object().keys({
-        nombre:validString("nombre")
+        id:validNumber("id"),
+        nombre:validString("")
     })
 }
