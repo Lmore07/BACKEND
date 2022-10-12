@@ -1,18 +1,18 @@
 import { NextFunction, Response, Request,Router } from "express";
 import { validate } from "express-validation";
 import { inserta_fila, obtener_tablas } from "./controller";
-import { ValidarIngreso } from "./validation";
+import {ValidarIngreso}  from "./validation";
 
 const router=Router()
+
 
 router.post(
     "/inserta-fila",
     validate(ValidarIngreso,{},{}),
     async (req:Request, res:Response, next:NextFunction) =>{
-        console.log(req);
         var dato=inserta_fila(req,res);
-        console.log(dato);
-        res.json({datos:"datos"})
+        console.log(dato)
+        res.json((await dato))
         return next();
     }
 )

@@ -7,6 +7,8 @@ export const obtener_tablas=async (req:Request,res:Response) => {
 }
 
 export const inserta_fila=async (req:Request,res:Response) => {
-    console.log(req.body);
-    return 1;
+    var datos=await pool.query("INSERT INTO prueba (id,nombre) VALUES ("+req.body.id+",'"+req.body.nombre+"');");
+    if(datos.rowCount==0)
+        return {estado:"failed"}
+    return {estado:"success"}
 }

@@ -20,7 +20,9 @@ const obtener_tablas = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.obtener_tablas = obtener_tablas;
 const inserta_fila = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
-    return 1;
+    var datos = yield conexion_1.default.query("INSERT INTO prueba (id,nombre) VALUES (" + req.body.id + ",'" + req.body.nombre + "');");
+    if (datos.rowCount == 0)
+        return { estado: "failed" };
+    return { estado: "success" };
 });
 exports.inserta_fila = inserta_fila;

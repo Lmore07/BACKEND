@@ -15,10 +15,9 @@ const controller_1 = require("./controller");
 const validation_1 = require("./validation");
 const router = (0, express_1.Router)();
 router.post("/inserta-fila", (0, express_validation_1.validate)(validation_1.ValidarIngreso, {}, {}), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req);
     var dato = (0, controller_1.inserta_fila)(req, res);
     console.log(dato);
-    res.json({ datos: "datos" });
+    res.json((yield dato));
     return next();
 }));
 router.get("/mostrar", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
