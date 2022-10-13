@@ -11,12 +11,11 @@ class Server {
         this.app = (0, express_1.default)();
         this.app.use(body_parser_1.default.json());
         this.port = process.env.PORT || "3001";
-        console.log(process.env.PASSWORD);
         (0, routes_1.default)(this.app);
     }
     listen() {
         this.app.listen(this.port, () => {
-            console.log("Servidor corriendo en " + this.port);
+            console.log("Servidor corriendo en http://localhost:" + this.port);
         });
     }
 }

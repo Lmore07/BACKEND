@@ -2,8 +2,7 @@ import { Request,Response } from "express"
 import pool from "../../models/conexion";
 
 export const obtenerTablas=async (req:Request,res:Response) => {
-    var datos=await pool.query("select tablename from pg_catalog.pg_tables where schemaname='public'");
-    return datos;
+    return await pool.query("select tablename from pg_catalog.pg_tables where schemaname='public'");;
 }
 
 export const insertaFila=async (req:Request,res:Response) => {
@@ -35,10 +34,7 @@ export const creaTablaColumnas=async (req:Request,res:Response) => {
                 primaryKey+=req.body.columnas[i].nombre+" ";
         }
         columnas+=", PRIMARY KEY ("+primaryKey+")";
-        var datos=await pool.query("CREATE TABLE "+req.body.table+"("+columnas+")");
-        console.log(datos);
-        //if(datos.rowCount==0)
-            //return {estado:"failed"}
+        await pool.query("CREATE TABLE "+req.body.table+"("+columnas+")");
         return {estado:"success"}
     } catch (error) {
         return {error:error}

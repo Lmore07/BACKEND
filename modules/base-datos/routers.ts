@@ -18,8 +18,7 @@ router.post(
 router.get(
     "/mostrar",
     async (req:Request, res:Response, next:NextFunction) =>{
-        let datos=obtenerTablas(req,res);
-        res.json((await datos).rows)
+        res.json((await obtenerTablas(req,res)).rows)
         return next();
     }
 )
@@ -28,8 +27,7 @@ router.post(
     "/insertar-tabla-columnas",
     validate(ValidarInsercion,{},{}),
     async (req:Request, res:Response, next:NextFunction) =>{
-        let datos=creaTablaColumnas(req,res);
-        res.json((await datos))
+        res.json((await creaTablaColumnas(req,res)))
         return next();
     }
 )

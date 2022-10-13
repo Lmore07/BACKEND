@@ -48,10 +48,7 @@ const creaTablaColumnas = (req, res) => __awaiter(void 0, void 0, void 0, functi
                 primaryKey += req.body.columnas[i].nombre + " ";
         }
         columnas += ", PRIMARY KEY (" + primaryKey + ")";
-        var datos = yield conexion_1.default.query("CREATE TABLE " + req.body.table + "(" + columnas + ")");
-        console.log(datos);
-        //if(datos.rowCount==0)
-        //return {estado:"failed"}
+        yield conexion_1.default.query("CREATE TABLE " + req.body.table + "(" + columnas + ")");
         return { estado: "success" };
     }
     catch (error) {
