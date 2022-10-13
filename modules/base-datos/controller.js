@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.creaTablaColumnas = exports.insertaFila = exports.obtenerTablas = void 0;
+exports.creaTablaColumnas = exports.obtenerTablas = void 0;
 const conexion_1 = __importDefault(require("../../models/conexion"));
 const obtenerTablas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var respuesta = [];
@@ -28,13 +28,6 @@ const obtenerTablas = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     return JSON.stringify(respuesta);
 });
 exports.obtenerTablas = obtenerTablas;
-const insertaFila = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var datos = yield conexion_1.default.query("INSERT INTO prueba (id,nombre) VALUES (" + req.body.id + ",'" + req.body.nombre + "');");
-    if (datos.rowCount == 0)
-        return { estado: "failed" };
-    return { estado: "success" };
-});
-exports.insertaFila = insertaFila;
 const creaTablaColumnas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         var columnas = "";
@@ -61,6 +54,7 @@ const creaTablaColumnas = (req, res) => __awaiter(void 0, void 0, void 0, functi
         return { estado: "success" };
     }
     catch (error) {
+        console.log(error);
         return { error: error };
     }
 });

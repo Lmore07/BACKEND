@@ -9,9 +9,9 @@ router.get(
     "/mostrar",
     async (req:Request, res:Response, next:NextFunction) =>{
         var json = JSON.parse(await obtenerTablas(req,res));
-        for (let index = 0; index < json.length; index++) {
-            json[index].columnas = JSON.parse(json[index].columnas);            
-        }
+        json.forEach((tabla: { columnas: string; }) => {
+            tabla.columnas=JSON.parse(tabla.columnas); 
+        });
         res.json(json)
         return next();
     }
