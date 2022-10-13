@@ -1,25 +1,14 @@
 import { NextFunction, Response, Request,Router } from "express";
 import { validate } from "express-validation";
-import { creaTablaColumnas, insertaFila, obtenerTablas } from "./controller";
-import {ValidarIngreso, ValidarInsercion}  from "./validation";
+import { creaTablaColumnas, obtenerTablas } from "./controller";
+import {ValidarInsercion}  from "./validation";
 
 const router=Router()
-
-router.post(
-    "/inserta",
-    validate(ValidarIngreso,{},{}),
-    async (req:Request, res:Response, next:NextFunction) =>{
-        var dato=insertaFila(req,res);
-        res.json((await dato))
-        return next();
-    }
-)
 
 router.get(
     "/mostrar",
     async (req:Request, res:Response, next:NextFunction) =>{
-        var dato=obtenerTablas(req,res);
-        var json = JSON.parse(await dato);
+        var json = JSON.parse(await obtenerTablas(req,res));
         for (let index = 0; index < json.length; index++) {
             json[index].columnas = JSON.parse(json[index].columnas);            
         }

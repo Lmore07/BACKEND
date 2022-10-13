@@ -15,13 +15,6 @@ export const obtenerTablas=async (req:Request,res:Response) => {
     return JSON.stringify(respuesta);
 }
 
-export const insertaFila=async (req:Request,res:Response) => {
-    var datos=await pool.query("INSERT INTO prueba (id,nombre) VALUES ("+req.body.id+",'"+req.body.nombre+"');");
-    if(datos.rowCount==0)
-        return {estado:"failed"}
-    return {estado:"success"}
-}
-
 export const creaTablaColumnas=async (req:Request,res:Response) => {
     try {
         var columnas="";
@@ -47,6 +40,7 @@ export const creaTablaColumnas=async (req:Request,res:Response) => {
         await pool.query("CREATE TABLE "+req.body.table+"("+columnas+")");
         return {estado:"success"}
     } catch (error) {
+        console.log(error);
         return {error:error}
     }
 }
