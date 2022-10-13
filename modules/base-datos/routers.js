@@ -15,18 +15,11 @@ const controller_1 = require("./controller");
 const validation_1 = require("./validation");
 const router = (0, express_1.Router)();
 router.get("/mostrar", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var json = JSON.parse(yield (0, controller_1.obtenerTablas)(req, res));
-    json.forEach((tabla) => {
-        tabla.columnas = JSON.parse(tabla.columnas);
-    });
-    /*for (let index = 0; index < json.length; index++) {
-        json[index].columnas = JSON.parse(json[index].columnas);
-    }*/
-    res.json(json);
-    return next();
+    res.json((yield (0, controller_1.obtenerTablas)(req, res)));
+    next();
 }));
 router.post("/insertar-tabla-columnas", (0, express_validation_1.validate)(validation_1.ValidarInsercion, {}, {}), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     res.json((yield (0, controller_1.creaTablaColumnas)(req, res)));
-    return next();
+    next();
 }));
 exports.default = router;

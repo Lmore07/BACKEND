@@ -8,12 +8,8 @@ const router=Router()
 router.get(
     "/mostrar",
     async (req:Request, res:Response, next:NextFunction) =>{
-        var json = JSON.parse(await obtenerTablas(req,res));
-        json.forEach((tabla: { columnas: string; }) => {
-            tabla.columnas=JSON.parse(tabla.columnas); 
-        });
-        res.json(json)
-        return next();
+        res.json((await obtenerTablas(req,res)))
+        next();
     }
 )
 
@@ -22,7 +18,7 @@ router.post(
     validate(ValidarInsercion,{},{}),
     async (req:Request, res:Response, next:NextFunction) =>{
         res.json((await creaTablaColumnas(req,res)))
-        return next();
+        next();
     }
 )
 

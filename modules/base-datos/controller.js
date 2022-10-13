@@ -23,34 +23,41 @@ const obtenerTablas = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         var columnas = yield conexion_1.default.query("select column_name,data_type, is_nullable " +
             "from information_schema.columns where table_schema='public' and table_name='" + tablas.rows[index].table_name + "' " +
             "order by table_name;");
-        respuesta.push({ table: tablas.rows[index].table_name, columnas: JSON.stringify(columnas.rows) });
+        respuesta.push({ table: tablas.rows[index].table_name, columnas: columnas.rows });
     }
-    return JSON.stringify(respuesta);
+    return respuesta;
 });
 exports.obtenerTablas = obtenerTablas;
 const creaTablaColumnas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         var columnas = "";
         var primaryKey = "";
-        for (var i = 0; i < req.body.columnas.length; i++) {
-            columnas += req.body.columnas[i].nombre + " " + req.body.columnas[i].tipo + " ";
-            if (req.body.columnas[i].length > 0)
-                columnas += "(" + req.body.columnas[i].length + ") ";
-            if (req.body.columnas[i].notNull && i < req.body.columnas.length - 1)
+        /*for(var i=0;i<req.body.columnas.length;i++){
+            columnas+=req.body.columnas[i].nombre +" "+req.body.columnas[i].tipo+" ";
+            if(req.body.columnas[i].primaryKey)
+                primaryKey+=req.body.columnas[i].nombre+",";
+            if(req.body.columnas[i].length>0)
+                columnas+="("+req.body.columnas[i].length+") "
+            if(req.body.columnas[i].notNull)
+                columnas+="NOT NULL, "
+            else if(req.body.columnas[i].notNull==false)
+                columnas+="NULL, "
+        }*/
+        req.body.columnas.forEach((columna) => {
+            columnas += columna.nombre + " " + columna.tipo + " ";
+            if (columna.primaryKey)
+                primaryKey += columna.nombre + ",";
+            if (columna.length > 0)
+                columnas += "(" + columna.length + ") ";
+            if (columna.notNull)
                 columnas += "NOT NULL, ";
-            else if (req.body.columnas[i].notNull == false && i < req.body.columnas.length - 1)
+            else if (columna.notNull == false)
                 columnas += "NULL, ";
-            else if (req.body.columnas[i].notNull)
-                columnas += "NOT NULL ";
-            else if (req.body.columnas[i].notNull == false)
-                columnas += "NULL";
-            if (req.body.columnas[i].primaryKey && i < req.body.columnas.length - 1)
-                primaryKey += req.body.columnas[i].nombre + ",";
-            else if (req.body.columnas[i].primaryKey)
-                primaryKey += req.body.columnas[i].nombre + "";
+        });
+        if (primaryKey.endsWith(',')) {
+            primaryKey = primaryKey.substring(0, primaryKey.length - 1);
         }
-        columnas += ", PRIMARY KEY (" + primaryKey + ")";
-        yield conexion_1.default.query("CREATE TABLE " + req.body.table + "(" + columnas + ")");
+        yield conexion_1.default.query("CREATE TABLE " + req.body.table + "(" + columnas + " PRIMARY KEY (" + primaryKey + "))");
         return { estado: "success" };
     }
     catch (error) {
