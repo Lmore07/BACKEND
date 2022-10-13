@@ -18,7 +18,12 @@ router.post(
 router.get(
     "/mostrar",
     async (req:Request, res:Response, next:NextFunction) =>{
-        res.json((await obtenerTablas(req,res)).rows)
+        var dato=obtenerTablas(req,res);
+        var json = JSON.parse(await dato);
+        for (let index = 0; index < json.length; index++) {
+            json[index].columnas = JSON.parse(json[index].columnas);            
+        }
+        res.json(json)
         return next();
     }
 )

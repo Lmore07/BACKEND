@@ -15,8 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.creaTablaColumnas = exports.insertaFila = exports.obtenerTablas = void 0;
 const conexion_1 = __importDefault(require("../../models/conexion"));
 const obtenerTablas = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var datos = yield conexion_1.default.query("select tablename from pg_catalog.pg_tables where schemaname='public'");
-    return datos;
+    var respuesta = [];
+    var tablas = yield conexion_1.default.query("select distinct(table_name) " +
+        "from information_schema.columns where table_schema='public' " +
+        "order by table_name;");
+    for (let index = 0; index < tablas.rows.length; index++) {
+        var columnas = yield conexion_1.default.query("select column_name,data_type " +
+            "from information_schema.columns where table_schema='public' and table_name='" + tablas.rows[index].table_name + "' " +
+            "order by table_name;");
+        respuesta.push({ table: tablas.rows[index].table_name, columnas: JSON.stringify(columnas.rows) });
+    }
+    return JSON.stringify(respuesta);
 });
 exports.obtenerTablas = obtenerTablas;
 const insertaFila = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

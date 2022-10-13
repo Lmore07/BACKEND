@@ -2,7 +2,17 @@ import { Request,Response } from "express"
 import pool from "../../models/conexion";
 
 export const obtenerTablas=async (req:Request,res:Response) => {
-    return await pool.query("select tablename from pg_catalog.pg_tables where schemaname='public'");;
+    var respuesta=[]
+    var tablas = await pool.query("select distinct(table_name) "+
+                            "from information_schema.columns where table_schema='public' "+ 
+                            "order by table_name;");
+    for (let index = 0; index < tablas.rows.length; index++) {
+        var columnas = await pool.query("select column_name,data_type "+
+                                    "from information_schema.columns where table_schema='public' and table_name='"+tablas.rows[index].table_name+"' "+ 
+                                    "order by table_name;");
+        respuesta.push({table:tablas.rows[index].table_name, columnas:JSON.stringify(columnas.rows)})
+    }
+    return JSON.stringify(respuesta);
 }
 
 export const insertaFila=async (req:Request,res:Response) => {

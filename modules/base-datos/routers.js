@@ -20,13 +20,17 @@ router.post("/inserta", (0, express_validation_1.validate)(validation_1.ValidarI
     return next();
 }));
 router.get("/mostrar", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    let datos = (0, controller_1.obtenerTablas)(req, res);
-    res.json((yield datos).rows);
+    var dato = (0, controller_1.obtenerTablas)(req, res);
+    var json = JSON.parse(yield dato);
+    console.log(JSON.parse(json[0].columnas));
+    for (let index = 0; index < json.length; index++) {
+        json[index].columnas = JSON.parse(json[index].columnas);
+    }
+    res.json(json);
     return next();
 }));
 router.post("/insertar-tabla-columnas", (0, express_validation_1.validate)(validation_1.ValidarInsercion, {}, {}), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    let datos = (0, controller_1.creaTablaColumnas)(req, res);
-    res.json((yield datos));
+    res.json((yield (0, controller_1.creaTablaColumnas)(req, res)));
     return next();
 }));
 exports.default = router;
