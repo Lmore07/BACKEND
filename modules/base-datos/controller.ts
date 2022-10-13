@@ -7,7 +7,7 @@ export const obtenerTablas=async (req:Request,res:Response) => {
                             "from information_schema.columns where table_schema='public' "+ 
                             "order by table_name;");
     for (let index = 0; index < tablas.rows.length; index++) {
-        var columnas = await pool.query("select column_name,data_type "+
+        var columnas = await pool.query("select column_name,data_type, is_nullable "+
                                     "from information_schema.columns where table_schema='public' and table_name='"+tablas.rows[index].table_name+"' "+ 
                                     "order by table_name;");
         respuesta.push({table:tablas.rows[index].table_name, columnas:JSON.stringify(columnas.rows)})
@@ -41,7 +41,7 @@ export const creaTablaColumnas=async (req:Request,res:Response) => {
             if(req.body.columnas[i].primaryKey && i < req.body.columnas.length-1)
                 primaryKey+=req.body.columnas[i].nombre+",";
             else if(req.body.columnas[i].primaryKey)
-                primaryKey+=req.body.columnas[i].nombre+" ";
+                primaryKey+=req.body.columnas[i].nombre+"";
         }
         columnas+=", PRIMARY KEY ("+primaryKey+")";
         await pool.query("CREATE TABLE "+req.body.table+"("+columnas+")");

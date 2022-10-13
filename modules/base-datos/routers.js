@@ -22,7 +22,6 @@ router.post("/inserta", (0, express_validation_1.validate)(validation_1.ValidarI
 router.get("/mostrar", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var dato = (0, controller_1.obtenerTablas)(req, res);
     var json = JSON.parse(yield dato);
-    console.log(JSON.parse(json[0].columnas));
     for (let index = 0; index < json.length; index++) {
         json[index].columnas = JSON.parse(json[index].columnas);
     }
