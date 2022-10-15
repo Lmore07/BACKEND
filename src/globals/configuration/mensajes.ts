@@ -17,8 +17,9 @@ export const ERROR_POSTGRESQL = (codigo: string) => {
         case CodigosPostgreEnum.privilegioNoRevocado: return 'Privilegios no fueron revocados';
         case CodigosPostgreEnum.privilegiosInsuficientes: return 'Privilegios insuficiente';
         case CodigosPostgreEnum.tablaDuplicada: return 'Tabla duplicada';
-        case CodigosPostgreEnum.tablaIndefinida: return 'Tabla no definida';
-        case CodigosPostgreEnum.falloAuth: return 'Falló la autenticacion de las credenciales';
+        case CodigosPostgreEnum.tablaIndefinida: return 'Tabla no definida';        
+        case CodigosPostgreEnum.falloAuth: return 'Las credenciales no funcionaron';
+        case CodigosPostgreEnum.databaseNoExiste: return 'La base de datos especficadas no existe';
     }
     return "Error en base de datos"
 }

@@ -12,12 +12,12 @@ export default class BaseDatosComponent{
             for (var i = 0; i < tablas.length; i++){
                 tablasColumnas.push({
                     table: tablas[i].table_name, 
-                    columnas : (await this.obtenerColumnas(tablas[i].table_name))
+                    columnas : (await this.obtenerColumnas(tablas[i].table_name)) || []
                 });
             }
             return tablasColumnas;
         } catch (error) {
-            console.log(error);
+            return error;
         }
     }
 
@@ -25,13 +25,18 @@ export default class BaseDatosComponent{
         try {
             
         } catch (error) {
-            console.log(error);
+            return error;
         }
     }
 
     obtenerColumnas = async (table_name:string) => {
-        var columnas : Columna[]= (await baseDatosColumnas.obtenerColumnasByTable(table_name)).rows;
-        return columnas;
+        try{
+            var columnas : Columna[]= (await baseDatosColumnas.obtenerColumnasByTable(table_name)).rows;
+            return columnas;
+        }catch(error:any){
+            return error
+        }
+
     }
 
     insertarTablasColumnas = async (table:Tabla) => {

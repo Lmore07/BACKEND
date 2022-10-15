@@ -8,12 +8,7 @@ const bdTablasColumnas = new BaseDatosComponent();
 export default class BaseDatosController{
 
     obtenerTablasColumnas=async () => {
-        try {
-            return bdTablasColumnas.obtenerTablas();
-        } catch (error) {
-            console.log(error);
-            return {error: error}
-        }
+        return bdTablasColumnas.obtenerTablas();
     }
     
     creaTablaColumnas = async (req:Request) => {

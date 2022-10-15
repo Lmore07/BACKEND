@@ -13,5 +13,6 @@ export const enum CodigosPostgreEnum{
     columnaIndefinida ="42703",
     tablaIndefinida = "42P01",
     fueraDeMemoria = "53200",
-    falloAuth = "28P01"
+    falloAuth = "28P01",
+    databaseNoExiste = "3D000"
 }

@@ -18,6 +18,7 @@ router.get(
             const data = await baseDatosColumnasController.obtenerTablasColumnas();
             responseHelper.success( req,res,data,"Mostrar Tablas y Columnas");
         } catch (error:any) {
+            console.log(error.code);
             responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
         }
         next();
