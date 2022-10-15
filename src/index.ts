@@ -1,8 +1,14 @@
-import dotenv from 'dotenv';
-import Server from './models/server';
+import cors from 'cors';
+import Server from './server/server';
+import bodyParser from "body-parser";
+import applyRoutes from "./modules/routes";
 
-dotenv.config();
 
 const server = new Server();
+
+server.app.use("*",cors());
+server.app.use(bodyParser.json());
+
+applyRoutes(server);
 
 server.listen();

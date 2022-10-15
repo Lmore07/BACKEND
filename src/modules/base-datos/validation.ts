@@ -1,5 +1,5 @@
 import {Joi} from "express-validation"
-import {validBoolean, validNumber, validString} from "../../utilValidation"
+import {validBoolean, validNumber, validString} from "../../helpers/utilValidation"
 
 export const ValidarIngreso={
     body:Joi.object({
@@ -14,7 +14,7 @@ export const ValidarInsercion={
         columnas:Joi.array().items({
             tipo:validString(),
             nombre:validString(),
-            notNull:validBoolean(),
+            notNull:validString(),
             length:validNumber(),
             primaryKey:validBoolean()
         })
