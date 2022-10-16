@@ -10,9 +10,21 @@ export default class BaseDatosController{
     obtenerTablasColumnas=async () => {
         return bdTablasColumnas.obtenerTablasYColumnas();
     }
-    
-    creaTablaColumnas = async (req:Request) => {
-        return bdTablasColumnas.insertarTablasColumnas(<Tabla>req.body);
+
+    crearTablaColumnas = async (req:Request) => {
+        return bdTablasColumnas.crearTablasColumnas(<Tabla>req.body);
+    }
+
+    otorgarPermisosTablas = async (req:Request) => {
+        return bdTablasColumnas.otorgarPermisosTablas(req.body);
+    }
+
+    obtenerColumnas = async (req:Request) => {
+        return bdTablasColumnas.obtenerColumnas(req.params.table);
+    }
+
+    obtenerTablas = async () => {
+        return bdTablasColumnas.obtenerTablas();
     }
 
 }

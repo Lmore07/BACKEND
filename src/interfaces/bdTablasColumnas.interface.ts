@@ -10,3 +10,16 @@ export interface Columna {
     length      : number;
     primaryKey  : boolean;
 }
+
+export interface Permisos {
+    table    : string;
+    permisos : TipoPermiso;
+    user     : string;
+}
+
+export interface TipoPermiso {
+    select : boolean;
+    update : boolean;
+    insert : boolean;
+    delete : boolean;
+}
