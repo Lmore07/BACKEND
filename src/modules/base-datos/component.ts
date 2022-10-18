@@ -73,4 +73,12 @@ export default class BaseDatosComponent{
         return baseDatosColumnas.revokePermisosTables(permisosReq.table,permisosRevokes,permisosReq.user);
     }
 
+    borrarTablas = async (tableName:string) => {
+        return baseDatosColumnas.borrarTablas(tableName);
+    }
+
+    borrarColumnas = async (tableName:string,columna:string) => {
+        return baseDatosColumnas.borrarColumnas(tableName,columna);
+    }
+
 }

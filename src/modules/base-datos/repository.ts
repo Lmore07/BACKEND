@@ -43,4 +43,16 @@ export default class BaseDatosRepository{
         );
     }
 
+    borrarTablas = async (tableName:string) => {
+        return await pool.query(
+            "DROP TABLE "+tableName+";"
+        );
+    }
+
+    borrarColumnas = async (tableName:string, columna:string) => {
+        return await pool.query(
+            "ALTER TABLE "+tableName+" DROP COLUMN "+columna+";"
+        );
+    }
+
 }

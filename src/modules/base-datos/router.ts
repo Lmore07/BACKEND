@@ -79,4 +79,29 @@ router.post(
     }
 )
 
+router.delete(
+    "/borrar/tabla/:tableName",
+    async (req:Request, res:Response, next:NextFunction) =>{
+        try {
+            await baseDatosColumnasController.borrarTablas(req);
+            responseHelper.success(req,res,{data:"TABLA ELIMINADA"},"BORRAR TABLA");
+        } catch (error:any) {
+            responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
+        }
+        next();
+    }
+)
+
+router.delete(
+    "/borrar/columnas/:tableName&:columna",
+    async (req:Request, res:Response, next:NextFunction) =>{
+        try {
+            await baseDatosColumnasController.borrarColumna(req);
+            responseHelper.success(req,res,{data:"COLUMNA ELIMINADA"},"ELIMINAR COLUMNA");
+        } catch (error:any) {
+            responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
+        }
+    }
+)
+
 export default router;

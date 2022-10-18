@@ -27,5 +27,13 @@ export default class BaseDatosController{
         return bdTablasColumnas.obtenerTablas();
     }
 
+    borrarTablas = async (req:Request) => {
+        return bdTablasColumnas.borrarTablas(req.params.tableName);
+    }
+
+    borrarColumna = async (req:Request) => {
+        return bdTablasColumnas.borrarColumnas(req.params.tableName, req.params.columna);
+    }
+
 }
 
