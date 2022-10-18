@@ -1,8 +1,8 @@
 import express, { Application } from 'express';
-
 import { PORT, HOST } from '../globals/configuration/environment';
 
 class Server{
+
     app:Application;
     private port:number;
     private host:string;
