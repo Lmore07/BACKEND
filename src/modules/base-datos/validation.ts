@@ -14,7 +14,7 @@ export const ValidarInsercion={
     })
 }
 
-export const ValidarPermisos={
+export const ValidarPermisos = {
     body:Joi.object({
         table    : validString(),
         permisos : Joi.object({
@@ -24,5 +24,15 @@ export const ValidarPermisos={
             delete : validBoolean()
         }),
         user : validString()
+    })
+}
+
+export const ValidarUpdateTabla = {
+    body:Joi.object({
+        table    : validString(),
+        columnas : Joi.object({
+            tipo : validString(),
+            nombre : validString()
+        })
     })
 }

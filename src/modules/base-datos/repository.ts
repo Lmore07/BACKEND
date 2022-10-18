@@ -55,4 +55,22 @@ export default class BaseDatosRepository{
         );
     }
 
+    cambiarTipoColumnas = async (tableName:string, columna:string) => {
+        return await pool.query(
+            "ALTER TABLE "+tableName+" ALTER COLUMN "+columna+";"
+        );
+    }
+
+    cambiarNombreColumnas = async (tableName:string, columna:string) => {
+        return await pool.query(
+            ""
+        );
+    }
+
+    cambiarNombreTabla = async (tableNameAntiguo:string,tableNameActual:string) => {
+        return await pool.query(
+            "ALTER TABLE "+tableNameAntiguo+" RENAME TO "+tableNameActual+";"
+        );
+    }
+
 }

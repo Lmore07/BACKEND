@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request,Router } from "express";
 import { validate } from "express-validation";
-import {ValidarInsercion, ValidarPermisos}  from "./validation";
+import {ValidarInsercion, ValidarPermisos, ValidarUpdateTabla}  from "./validation";
 import BaseDatosController from "./controller";
 import ResponseHelper from "../../helpers/responseHelper";
 import { CodigosHttpEnum } from "../../enum/codigosHttpEnum";
@@ -100,6 +100,18 @@ router.delete(
             responseHelper.success(req,res,{data:"COLUMNA ELIMINADA"},"ELIMINAR COLUMNA");
         } catch (error:any) {
             responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
+        }
+    }
+)
+
+router.put(
+    "/modificar/tabla",
+    validate(ValidarUpdateTabla,{},{}),
+    async (req:Request, res:Response, next:NextFunction) =>{
+        try {
+            
+        } catch (error:any) {
+            
         }
     }
 )
