@@ -29,7 +29,7 @@ router.get(
     async (req:Request, res:Response, next:NextFunction) =>{
         try {
             const data = await baseDatosColumnasController.obtenerTablas();
-            responseHelper.success( req,res,data,"Mostrar Tablas y Columnas");
+            responseHelper.success( req,res,data,"Mostrar Tablas");
         } catch (error:any) {
             responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
         }
@@ -42,7 +42,7 @@ router.get(
     async (req:Request, res:Response, next:NextFunction) =>{
         try {
             const data = await baseDatosColumnasController.obtenerColumnas(req);
-            responseHelper.success( req,res,data,"Mostrar Tablas y Columnas");
+            responseHelper.success( req,res,data,"Mostrar Columnas");
         } catch (error:any) {
             responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
         }
