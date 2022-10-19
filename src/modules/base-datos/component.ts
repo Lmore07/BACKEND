@@ -22,22 +22,25 @@ export default class BaseDatosComponent{
     }
 
     crearTablasColumnas = async (table:Tabla) => {
+        console.log(table);
         var stringColumnas = ""
         var primaryKeyString = ""
         table.columnas.forEach(columna => {
-            stringColumnas+=columna.nombre +" "+columna.tipo+" ";
+            stringColumnas+=columna.nombre +" "+columna.tipo+"";
             if(columna.primaryKey)
                 primaryKeyString+=columna.nombre+",";
             if(columna.length>0)
                 stringColumnas+="("+columna.length+") "
             if(columna.notNull == "SI")
-                stringColumnas+="NOT NULL, "
+                stringColumnas+=" NOT NULL, "
             else if(columna.notNull == "NO")
-                stringColumnas+="NULL, "
+                stringColumnas+=" NULL, "
         });
-        if(primaryKeyString.endsWith(',')){
+        if(stringColumnas.endsWith(","))
+            stringColumnas=stringColumnas.substring(0,stringColumnas.length-1);
+        if(primaryKeyString.endsWith(','))
             primaryKeyString=primaryKeyString.substring(0,primaryKeyString.length-1);
-        }
+
         return baseDatosColumnas.crearTablasColumnas(table.table, stringColumnas, primaryKeyString);
     }
 

@@ -12,7 +12,7 @@ const baseDatosColumnasController = new BaseDatosController();
 const responseHelper = new ResponseHelper();
 
 router.get(
-    "/tablas-columnas",
+    "/mostrar/tablas-columnas",
     async (req:Request, res:Response, next:NextFunction) =>{
         try {
             const data = await baseDatosColumnasController.obtenerTablasColumnas();

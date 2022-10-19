@@ -5,7 +5,11 @@ import applyRoutes from "./modules/routes";
 
 const server = new Server();
 
-server.app.use("*",cors());
+var corsOptions = {
+    origin: '*',
+}
+
+server.app.use(cors(corsOptions));
 server.app.use(bodyParser.json());
 
 applyRoutes(server);

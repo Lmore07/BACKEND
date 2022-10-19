@@ -19,9 +19,16 @@ export default class BaseDatosRepository{
     }
 
     crearTablasColumnas = async (tableName:string, columnaString:string, primaryKeyString:string) =>{
-        return await pool.query(
-            "CREATE TABLE "+tableName+" ("+columnaString+" PRIMARY KEY ("+primaryKeyString+"))"
-        );
+        
+        if(primaryKeyString.length > 0){
+            return await pool.query(
+                "CREATE TABLE "+tableName+" ("+columnaString+" ,PRIMARY KEY ("+primaryKeyString+"))"
+            );
+        }else{
+            return await pool.query(
+                "CREATE TABLE "+tableName+" ("+columnaString+")"
+            );
+        }
     }
 
     grantAndRevokePermisosTables = async (tableName:string, permisosGrants:string,permisosRevokes:string, user:string) => {
