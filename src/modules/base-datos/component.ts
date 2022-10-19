@@ -24,7 +24,10 @@ export default class BaseDatosComponent{
     crearTablasColumnas = async (table:Tabla) => {
         var stringColumnas = ""
         table.columnas.forEach(columna => {
-            stringColumnas+=columna.nombre +" "+columna.tipo+" NULL,";
+            stringColumnas+=columna.nombre +" "+columna.tipo;
+            if(columna.length > 0)
+                stringColumnas+="("+columna.length+")";
+            stringColumnas+=" NULL,";
         });
         if(stringColumnas.endsWith(","))
             stringColumnas=stringColumnas.substring(0,stringColumnas.length-1);

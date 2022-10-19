@@ -12,16 +12,13 @@ export default class BaseDatosRepository {
 
     obtenerColumnasByTable = async (tableName: string) => {
         return await pool.query(
-            "select column_name as nombre,data_type as tipo, is_nullable as notNull " +
+            "select column_name as nombre,data_type as tipo " +
             "from information_schema.columns where table_schema='public' and table_name='" + tableName + "' " +
             "order by table_name;"
         );
     }
 
     crearTablasColumnas = async (tableName: string, columnaString: string) => {
-
-        console.log("CREATE TABLE " + tableName + " (" + columnaString + ")");
-
         return await pool.query(
             "CREATE TABLE " + tableName + " (" + columnaString + ")"
         );
