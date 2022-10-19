@@ -19,14 +19,11 @@ export default class BaseDatosRepository {
     }
 
     crearTablasColumnas = async (tableName: string, columnaString: string) => {
+
+        console.log("CREATE TABLE " + tableName + " (" + columnaString + ")");
+
         return await pool.query(
             "CREATE TABLE " + tableName + " (" + columnaString + ")"
-        );
-    }
-
-    createTablasColumnasPK = async (tableName: string, columnaString: string, primaryKeyString: string) => {
-        return await pool.query(
-            "CREATE TABLE " + tableName + " (" + columnaString + " , PRIMARY KEY (" + primaryKeyString + "))"
         );
     }
 
@@ -58,24 +55,6 @@ export default class BaseDatosRepository {
     borrarColumnas = async (tableName: string, columna: string) => {
         return await pool.query(
             "ALTER TABLE " + tableName + " DROP COLUMN " + columna + ";"
-        );
-    }
-
-    cambiarTipoColumnas = async (tableName: string, columna: string) => {
-        return await pool.query(
-            "ALTER TABLE " + tableName + " ALTER COLUMN " + columna + ";"
-        );
-    }
-
-    cambiarNombreColumnas = async (tableName: string, columna: string) => {
-        return await pool.query(
-            ""
-        );
-    }
-
-    cambiarNombreTabla = async (tableNameAntiguo: string, tableNameActual: string) => {
-        return await pool.query(
-            "ALTER TABLE " + tableNameAntiguo + " RENAME TO " + tableNameActual + ";"
         );
     }
 

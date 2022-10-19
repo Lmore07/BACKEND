@@ -1,117 +1,165 @@
-import { NextFunction, Response, Request,Router } from "express";
+import { NextFunction, Response, Request, Router } from "express";
 import { validate } from "express-validation";
-import {ValidarInsercion, ValidarPermisos, ValidarUpdateTabla}  from "./validation";
+import { ValidarInsercion, ValidarPermisos } from "./validation";
 import BaseDatosController from "./controller";
-import ResponseHelper from "../../helpers/responseHelper";
 import { CodigosHttpEnum } from "../../enum/codigosHttpEnum";
 import { ERROR_POSTGRESQL } from "../../globals/configuration/mensajes";
+import ResponseHelper from "../../helpers/responseHelper";
+import TokenHelper from "../../helpers/tokenHelper";
 
-const router=Router()
+const router = Router()
 
 const baseDatosColumnasController = new BaseDatosController();
 const responseHelper = new ResponseHelper();
+const tokenHelper = new TokenHelper();
 
+//probando
 router.get(
-    "/mostrar/tablas-columnas",
-    async (req:Request, res:Response, next:NextFunction) =>{
-        try {
-            const data = await baseDatosColumnasController.obtenerTablasColumnas();
-            responseHelper.success( req,res,data,"Mostrar Tablas y Columnas");
-        } catch (error:any) {
-            responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
-        }
-        next();
+    "/firmaToken",
+    async (req: any, res: Response, nex: NextFunction) => {
+        tokenHelper.generaToken({bar:"fo"},req,res);
     }
 )
 
 router.get(
-    "/mostrar/tablas",
-    async (req:Request, res:Response, next:NextFunction) =>{
+    "/mostrar/tablas-columnas",
+    tokenHelper.vericaExisteToken,
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const data = await baseDatosColumnasController.obtenerTablas();
-            responseHelper.success( req,res,data,"Mostrar Tablas");
-        } catch (error:any) {
-            responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
+            var request: any = req;
+            if (await tokenHelper.verificaToken(request.token)) {
+                const data = await baseDatosColumnasController.obtenerTablasColumnas();
+                responseHelper.success(req, res, data, "Mostrar Tablas y Columnas");
+                next();
+            } else {
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
+                next();
+            }
+        } catch (error: any) {
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
         }
-        next();
+    }
+)
+
+
+router.get(
+    "/mostrar/tablas",
+    tokenHelper.vericaExisteToken,
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            var request: any = req;
+            if (await tokenHelper.verificaToken(request.token)) {
+                const data = await baseDatosColumnasController.obtenerTablas();
+                responseHelper.success(req, res, data, "Mostrar Tablas");
+                next();
+            } else {
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
+                next();
+            }
+        } catch (error: any) {
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
+        }
     }
 )
 
 router.get(
     "/mostrar/columnas/:table",
-    async (req:Request, res:Response, next:NextFunction) =>{
+    tokenHelper.vericaExisteToken,
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const data = await baseDatosColumnasController.obtenerColumnas(req);
-            responseHelper.success( req,res,data,"Mostrar Columnas");
-        } catch (error:any) {
-            responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
+            var request: any = req;
+            if (await tokenHelper.verificaToken(request.token)) {
+                const data = await baseDatosColumnasController.obtenerColumnas(req);
+                responseHelper.success(req, res, data, "Mostrar Columnas");
+                next();
+            } else {
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
+                next();
+            }
+        } catch (error: any) {
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
         }
-        next();
     }
 )
 
-
 router.post(
     "/crear/tabla-columnas",
-    validate(ValidarInsercion,{},{}),
-    async (req:Request, res:Response, next:NextFunction) =>{
+    validate(ValidarInsercion),
+    tokenHelper.vericaExisteToken,
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
-            await baseDatosColumnasController.crearTablaColumnas(req);
-            responseHelper.success(req,res,{data:"INSERTADO CORRECTAMENTE"},"INSERTAR TABLAS Y COLUMNAS");
-        } catch (error:any) {
-            responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
+            var request: any = req;
+            if (await tokenHelper.verificaToken(request.token)) {
+                await baseDatosColumnasController.crearTablaColumnas(req);
+                responseHelper.success(req, res, { data: "INSERTADO CORRECTAMENTE" }, "INSERTAR TABLAS Y COLUMNAS");
+                next();
+            } else {
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
+                next();
+            }
+        } catch (error: any) {
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
         }
-        next();
     }
 )
 
 router.post(
     "/otorgar-permisos",
-    validate(ValidarPermisos,{},{}),
-    async (req:Request, res:Response, next:NextFunction) =>{
+    tokenHelper.vericaExisteToken,
+    validate(ValidarPermisos, {}, {}),
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
-            await baseDatosColumnasController.otorgarPermisosTablas(req);
-            responseHelper.success(req,res,{data:"PERMISO CONCEDIDO"},"GESTION DE PERMISOS");
-        } catch (error:any) {
-            responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
+            var request: any = req;
+            if (await tokenHelper.verificaToken(request.token)) {
+                await baseDatosColumnasController.otorgarPermisosTablas(req);
+                responseHelper.success(req, res, { data: "PERMISO CONCEDIDO" }, "GESTION DE PERMISOS");
+                next();
+            } else {
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
+                next();
+            }
+        } catch (error: any) {
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
         }
-        next();
     }
 )
 
 router.delete(
     "/borrar/tabla/:tableName",
-    async (req:Request, res:Response, next:NextFunction) =>{
+    tokenHelper.vericaExisteToken,
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
-            await baseDatosColumnasController.borrarTablas(req);
-            responseHelper.success(req,res,{data:"TABLA ELIMINADA"},"BORRAR TABLA");
-        } catch (error:any) {
-            responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
+            var request: any = req;
+            if (await tokenHelper.verificaToken(request.token)) {
+                await baseDatosColumnasController.borrarTablas(req);
+                responseHelper.success(req, res, { data: "TABLA ELIMINADA" }, "BORRAR TABLA");
+                next();
+            } else {
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
+                next();
+            }
+        } catch (error: any) {
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
         }
-        next();
     }
 )
 
 router.delete(
     "/borrar/columnas/:tableName&:columna",
-    async (req:Request, res:Response, next:NextFunction) =>{
+    tokenHelper.vericaExisteToken,
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
-            await baseDatosColumnasController.borrarColumna(req);
-            responseHelper.success(req,res,{data:"COLUMNA ELIMINADA"},"ELIMINAR COLUMNA");
-        } catch (error:any) {
-            responseHelper.fail(req,res,CodigosHttpEnum.badRequest,ERROR_POSTGRESQL(error.code));
-        }
-    }
-)
-
-router.put(
-    "/modificar/tabla",
-    validate(ValidarUpdateTabla,{},{}),
-    async (req:Request, res:Response, next:NextFunction) =>{
-        try {
-            
-        } catch (error:any) {
-            
+            var request: any = req;
+            if (await tokenHelper.verificaToken(request.token)) {
+                await baseDatosColumnasController.borrarColumna(req);
+                responseHelper.success(req, res, { data: "COLUMNA ELIMINADA" }, "ELIMINAR COLUMNA");
+                next();
+            } else {
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
+                next();
+            }
+        } catch (error: any) {
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
         }
     }
 )

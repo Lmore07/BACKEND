@@ -6,9 +6,6 @@ export interface Tabla {
 export interface Columna {
     nombre      : string;
     tipo        : string;
-    notNull     : string;
-    length      : number;
-    primaryKey  : boolean;
 }
 
 export interface Permisos {

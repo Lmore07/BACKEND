@@ -4,7 +4,6 @@ import { Request, Response } from "express";
 import { TRANSACCION_EXITOSA } from "../globals/configuration/mensajes";
 import _ from "lodash";
 
-
 export default class ResponseHelper {
     
     private respEndpoint: ResponseInterface = {
@@ -19,6 +18,8 @@ export default class ResponseHelper {
         data: any,
         observacion?: string
     ) {
+
+
         this.respEndpoint.msj             = TRANSACCION_EXITOSA;
         this.respEndpoint.data            = data;
         this.respEndpoint.tokenValido     = true;
@@ -42,6 +43,5 @@ export default class ResponseHelper {
             ...this.respEndpoint
         });
     }
-
     
 }

@@ -6,10 +6,8 @@ export const ValidarInsercion={
         table : validString(),
         columnas : Joi.array().items({
             tipo       : validString(),
-            nombre     : validString(),
-            notNull    : validString(),
+            nombre     : validString(),    
             length     : validNumber(),
-            primaryKey : validBoolean()
         })
     })
 }
