@@ -22,7 +22,6 @@ export default class BaseDatosComponent{
     }
 
     crearTablasColumnas = async (table:Tabla) => {
-        console.log(table);
         var stringColumnas = ""
         var primaryKeyString = ""
         table.columnas.forEach(columna => {
@@ -32,16 +31,19 @@ export default class BaseDatosComponent{
             if(columna.length>0)
                 stringColumnas+="("+columna.length+") "
             if(columna.notNull == "SI")
-                stringColumnas+=" NOT NULL, "
+                stringColumnas+=" NOT NULL,"
             else if(columna.notNull == "NO")
-                stringColumnas+=" NULL, "
+                stringColumnas+=" NULL,"
         });
         if(stringColumnas.endsWith(","))
             stringColumnas=stringColumnas.substring(0,stringColumnas.length-1);
         if(primaryKeyString.endsWith(','))
             primaryKeyString=primaryKeyString.substring(0,primaryKeyString.length-1);
 
-        return baseDatosColumnas.crearTablasColumnas(table.table, stringColumnas, primaryKeyString);
+        if(primaryKeyString.length > 0)
+            return baseDatosColumnas.createTablasColumnasPK(table.table, stringColumnas, primaryKeyString);
+        else
+            return baseDatosColumnas.crearTablasColumnas(table.table, stringColumnas);
     }
 
     otorgarPermisosTablas = async (permisosReq:Permisos) => {
