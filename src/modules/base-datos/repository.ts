@@ -1,4 +1,4 @@
-import pool from "../../connections/conexion";
+import pool from "../../connections/conexionPostgre";
 
 export default class BaseDatosRepository {
 
