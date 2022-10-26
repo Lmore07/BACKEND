@@ -1,5 +1,5 @@
 import { Request,Response } from "express"
-import { Tabla } from "../../interfaces/bdTablasColumnas.interface";
+import { Tabla, Table } from "../../interfaces/bdTablasColumnas.interface";
 import BaseDatosComponent from "./component";
 
 const bdTablasColumnas = new BaseDatosComponent();
@@ -23,11 +23,11 @@ export default class BaseDatosController{
     }
 
     borrarTablas = async (req:Request) => {
-        return bdTablasColumnas.borrarTablas(req.params.tableName);
+        return bdTablasColumnas.borrarTablas(req.params.idTable);
     }
 
     borrarColumna = async (req:Request) => {
-        return bdTablasColumnas.borrarColumnas(req.params.table, req.params.columna);
+        return bdTablasColumnas.borrarColumnas(req.params.idTable, req.params.idColumna);
     }
 
     otorgarPermisosTablas = async (req:Request) => {

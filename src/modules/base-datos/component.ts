@@ -53,15 +53,16 @@ export default class BaseDatosComponent {
   };
 
   /* Deleting a table. */
-  borrarTablas = async (tableName: string) => {
-    return baseDatosColumnas.borrarTablas(tableName);
+  borrarTablas = async (idTable: string) => {
+    return baseDatosColumnas.borrarTablas(idTable);
   };
 
   /* Deleting a column. */
-  borrarColumnas = async (tableName: string, columna: string) => {
-    return baseDatosColumnas.borrarColumnas(tableName, columna);
+  borrarColumnas = async (idTable: string, idColumna: string) => {
+    return baseDatosColumnas.borrarColumnas(idTable, idColumna);
   };
 
+  /* This function is used to grant or revoke permissions to a table. */
   otorgarPermisosTablas = async (permisosReq: Permisos) => {
     var permisosGrants = "";
     var permisosRevokes = "";

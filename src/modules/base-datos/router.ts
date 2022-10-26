@@ -101,7 +101,7 @@ router.post(
 )
 
 router.delete(
-    "/borrar/tabla/:tableName",
+    "/borrar/tabla/:idTable",
     tokenHelper.vericaExisteToken,
     async (req: Request, res: Response, next: NextFunction) => {
         try {
@@ -119,7 +119,7 @@ router.delete(
 )
 
 router.delete(
-    "/borrar/columnas/:table&:columna",
+    "/borrar/columnas/:idTable&:idColumna",
     tokenHelper.vericaExisteToken,
     async (req: Request, res: Response, next: NextFunction) => {
         try {
@@ -136,7 +136,7 @@ router.delete(
     }
 )
 
-router.post(
+router.put(
     "/otorgar-permisos",
     tokenHelper.vericaExisteToken,
     validate(ValidarPermisos, {}, {}),

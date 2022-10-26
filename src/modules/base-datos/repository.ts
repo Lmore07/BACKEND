@@ -23,19 +23,19 @@ export default class BaseDatosRepository {
         " COMMIT;");
     }
 
-    borrarTablas = async (tabla: string) => {
+    borrarTablas = async (idTable: string) => {
         return await pool.query(
             "BEGIN;"+
-            " UPDATE tabla SET status=false WHERE id="+tabla+";"+
-            " UPDATE fields SET status=false WHERE id_table="+tabla+";"+
+            " UPDATE tabla SET status=false WHERE id="+idTable+";"+
+            " UPDATE fields SET status=false WHERE id_table="+idTable+";"+
             " COMMIT;"
         );
     }
 
-    borrarColumnas = async (table: string, columna: string) => {
+    borrarColumnas = async (idTable: string, idColumna: string) => {
         return await pool.query(
             "BEGIN;"+
-            " UPDATE fields SET status=false WHERE id_table="+table+" and id="+columna+";"+
+            " UPDATE fields SET status=false WHERE id_table="+idTable+" and id="+idColumna+";"+
             " COMMIT;"
         );
     }
