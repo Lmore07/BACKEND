@@ -43,14 +43,20 @@ export default class BaseDatosRepository {
     }
 
     borrarTablas = async (tableName: string) => {
+        console.log(tableName);
         return await pool.query(
-            "DROP TABLE " + tableName + ";"
+            "BEGIN;"+
+            " UPDATE tabla SET status=false WHERE id="+tableName+";"+
+            " UPDATE fields SET status=false WHERE id_table="+tableName+";"+
+            "COMMIT;"
         );
     }
 
     borrarColumnas = async (tableName: string, columna: string) => {
         return await pool.query(
-            "ALTER TABLE " + tableName + " DROP COLUMN " + columna + ";"
+            "BEGIN;"+
+            " ALTER TABLE " + tableName + " DROP COLUMN " + columna + ";"
+            
         );
     }
 
