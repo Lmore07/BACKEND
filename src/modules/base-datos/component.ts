@@ -38,9 +38,9 @@ export default class BaseDatosComponent {
     var stringColumnas     = "";
     table.table.created_At = new Date().toLocaleString();
     table.table.status     = true;
+    var fieldsDatos        = "";
     var tableDatos         = "'"+table.table.name+"','"+table.table.description+"',"+table.table.status+",'"+
                              table.table.created_At+"',"+table.table.company_id+",'"+table.table.code+"'";
-    var fieldsDatos        = "";
     table.fields.forEach((columna) => {
       stringColumnas     += columna.name.trimEnd() + " VARCHAR,";
       columna.status      =  true;
@@ -97,7 +97,5 @@ export default class BaseDatosComponent {
       permisosReq.user
     );
   };
-
-
   
 }

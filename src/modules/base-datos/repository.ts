@@ -19,7 +19,7 @@ export default class BaseDatosRepository {
         return await pool.query("BEGIN;"+
         " INSERT INTO tabla (name, description, status, created_at, company_id,code) VALUES ("+tableDatos+");"+
         " INSERT INTO fields (id_table, name, description, status, created_at, code) VALUES "+fieldsDatos+" ;"+
-        " CREATE TABLE " + tableName + " (" + columnaString + " created_At DATE);"+
+        " CREATE TABLE " + tableName + " (answer_id INTEGER, " + columnaString + " created_At DATE);"+
         " COMMIT;");
     }
 
