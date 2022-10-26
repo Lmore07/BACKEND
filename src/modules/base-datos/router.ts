@@ -1,5 +1,5 @@
 import { NextFunction, Response, Request, Router } from "express";
-import { validate } from "express-validation";
+import {ValidationError,validate} from "express-validation";
 import { ValidarInsercion, ValidarPermisos } from "./validation";
 import BaseDatosController from "./controller";
 import { CodigosHttpEnum } from "../../enum/codigosHttpEnum";
@@ -13,7 +13,8 @@ const baseDatosColumnasController = new BaseDatosController();
 const responseHelper = new ResponseHelper();
 const tokenHelper = new TokenHelper();
 
-//probando
+
+/* A route that is used to generate a token. */
 router.get(
     "/firmaToken",
     async (req: any, res: Response, nex: NextFunction) => {
@@ -30,13 +31,11 @@ router.get(
             if (await tokenHelper.verificaToken(request.token)) {
                 const data = await baseDatosColumnasController.obtenerTablasColumnas();
                 responseHelper.success(req, res, data, "Mostrar Tablas y Columnas");
-                next();
             } else {
-                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
-                next();
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
             }
         } catch (error: any) {
-            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
         }
     }
 )
@@ -51,17 +50,16 @@ router.get(
             if (await tokenHelper.verificaToken(request.token)) {
                 const data = await baseDatosColumnasController.obtenerTablas();
                 responseHelper.success(req, res, data, "Mostrar Tablas");
-                next();
             } else {
-                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
-                next();
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
             }
         } catch (error: any) {
-            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
         }
     }
 )
 
+/* A route that is used to get the columns of a table. */
 router.get(
     "/mostrar/columnas/:table",
     tokenHelper.vericaExisteToken,
@@ -71,17 +69,16 @@ router.get(
             if (await tokenHelper.verificaToken(request.token)) {
                 const data = await baseDatosColumnasController.obtenerColumnas(req);
                 responseHelper.success(req, res, data, "Mostrar Columnas");
-                next();
             } else {
-                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
-                next();
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
             }
         } catch (error: any) {
-            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
         }
     }
 )
 
+/* This is a route that is used to create a table and columns. */
 router.post(
     "/crear/tabla-columnas",
     validate(ValidarInsercion),
@@ -92,13 +89,11 @@ router.post(
             if (await tokenHelper.verificaToken(request.token)) {
                 await baseDatosColumnasController.crearTablaColumnas(req);
                 responseHelper.success(req, res, { data: "INSERTADO CORRECTAMENTE" }, "INSERTAR TABLAS Y COLUMNAS");
-                next();
             } else {
-                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
-                next();
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
             }
         } catch (error: any) {
-            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
         }
     }
 )
@@ -113,13 +108,11 @@ router.post(
             if (await tokenHelper.verificaToken(request.token)) {
                 await baseDatosColumnasController.otorgarPermisosTablas(req);
                 responseHelper.success(req, res, { data: "PERMISO CONCEDIDO" }, "GESTION DE PERMISOS");
-                next();
             } else {
-                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
-                next();
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
             }
         } catch (error: any) {
-            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
         }
     }
 )
@@ -133,13 +126,11 @@ router.delete(
             if (await tokenHelper.verificaToken(request.token)) {
                 await baseDatosColumnasController.borrarTablas(req);
                 responseHelper.success(req, res, { data: "TABLA ELIMINADA" }, "BORRAR TABLA");
-                next();
             } else {
-                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
-                next();
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
             }
         } catch (error: any) {
-            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
         }
     }
 )
@@ -153,13 +144,11 @@ router.delete(
             if (await tokenHelper.verificaToken(request.token)) {
                 await baseDatosColumnasController.borrarColumna(req);
                 responseHelper.success(req, res, { data: "COLUMNA ELIMINADA" }, "ELIMINAR COLUMNA");
-                next();
             } else {
-                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO");
-                next();
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
             }
         } catch (error: any) {
-            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code));
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
         }
     }
 )

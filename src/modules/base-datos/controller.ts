@@ -6,24 +6,24 @@ const bdTablasColumnas = new BaseDatosComponent();
 
 export default class BaseDatosController{
 
-    obtenerTablasColumnas=async () => {
-        return bdTablasColumnas.obtenerTablasYColumnas();
-    }
-
-    crearTablaColumnas = async (req:Request) => {
-        return bdTablasColumnas.crearTablasColumnas(<Tabla>req.body);
-    }
-
-    otorgarPermisosTablas = async (req:Request) => {
-        return bdTablasColumnas.otorgarPermisosTablas(req.body);
+    obtenerTablas = async () => {
+        return bdTablasColumnas.obtenerTablas();
     }
 
     obtenerColumnas = async (req:Request) => {
         return bdTablasColumnas.obtenerColumnas(req.params.table);
     }
 
-    obtenerTablas = async () => {
-        return bdTablasColumnas.obtenerTablas();
+    obtenerTablasColumnas=async () => {
+        return bdTablasColumnas.obtenerTablasYColumnas();
+    }
+
+    crearTablaColumnas = async (req:Request) => {
+        return bdTablasColumnas.crearTablasColumnas(req.body);
+    }
+
+    otorgarPermisosTablas = async (req:Request) => {
+        return bdTablasColumnas.otorgarPermisosTablas(req.body);
     }
 
     borrarTablas = async (req:Request) => {

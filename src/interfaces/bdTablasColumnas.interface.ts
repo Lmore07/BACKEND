@@ -1,12 +1,26 @@
 export interface Tabla {
-    table    : string;
-    columnas : Columna[];
+    table    : Table;
+    fields : Columna[];
 }
 
 export interface Columna {
-    nombre      : string;
-    tipo        : string;
-    length      : number;
+    id          : string;
+    id_table    : string;
+    name        : string;
+    description : string;
+    status      : boolean;
+    created_At  : string;
+    code        : string;
+}
+
+export interface Table {
+    id          : string;
+    name        : string;
+    description : string;
+    code        : string;
+    company_id  : number;
+    status      : boolean;
+    created_At  : string;
 }
 
 export interface Permisos {

@@ -1,27 +1,26 @@
 import pool from "../../connections/conexionPostgre";
+import { Tabla } from "../../interfaces/bdTablasColumnas.interface";
 
 export default class BaseDatosRepository {
 
     obtenerTablas = async () => {
         return await pool.query(
-            "select distinct(table_name) as table " +
-            "from information_schema.columns where table_schema='public' " +
-            "order by table_name;"
+            "SELECT * FROM tabla where status=true;"
         );
     }
 
-    obtenerColumnasByTable = async (tableName: string) => {
+    obtenerColumnasByTable = async (idTable: string) => {
         return await pool.query(
-            "select column_name as nombre,data_type as tipo " +
-            "from information_schema.columns where table_schema='public' and table_name='" + tableName + "' " +
-            "order by table_name;"
+            "select * from fields where id_table="+idTable+" and status=true;"
         );
     }
 
-    crearTablasColumnas = async (tableName: string, columnaString: string) => {
-        return await pool.query(
-            "CREATE TABLE " + tableName + " (" + columnaString + ")"
-        );
+    insertaTablesFields = async (tableName:string,columnaString:string,tableDatos: string, fieldsDatos:String) => {        
+        return await pool.query("BEGIN;"+
+        " INSERT INTO tabla (name, description, status, created_at, company_id,code) VALUES ("+tableDatos+");"+
+        " INSERT INTO fields (id_table, name, description, status, created_at, code) VALUES "+fieldsDatos+" ;"+
+        " CREATE TABLE " + tableName + " (" + columnaString + " created_At DATE);"+
+        " COMMIT;");
     }
 
     grantAndRevokePermisosTables = async (tableName: string, permisosGrants: string, permisosRevokes: string, user: string) => {

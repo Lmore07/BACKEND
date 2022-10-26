@@ -33,9 +33,10 @@ export default class ResponseHelper {
         req: Request,
         res: Response,
         codErrorHttp: number,
-        err: any
+        err: any,
+        data: any
     ) {
-        this.respEndpoint.data            = null;
+        this.respEndpoint.data            = data;
         this.respEndpoint.tokenValido     = false;
         this.respEndpoint.msj = _.isObject(err) ? (err as any).message : err;
 

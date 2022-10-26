@@ -3,11 +3,16 @@ import {validBoolean, validNumber, validString} from "../../helpers/utilValidati
 
 export const ValidarInsercion={
     body : Joi.object({
-        table : validString(),
-        columnas : Joi.array().items({
-            tipo       : validString(),
-            nombre     : validString(),    
-            length     : validNumber(),
+        table  : Joi.object({
+            name        : validString(),
+            description : validString(),
+            code        : validString(),
+            company_id  : validNumber()
+        }),
+        fields : Joi.array().items({
+            name        : validString(),
+            description : validString(),
+            code        : validString()
         })
     })
 }
