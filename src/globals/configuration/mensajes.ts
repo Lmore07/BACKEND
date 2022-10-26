@@ -4,6 +4,12 @@ export const TRANSACCION_EXITOSA: string = 'Transacción Exitosa';
 export const TRANSACCION_ERRONEA: string = 'No se pudo completar la transacción';
 
 
+/**
+ * It takes a string and returns a string
+ * @param {string} codigo - The error code that PostgreSQL returns.
+ * @param {string} detail - The detail of the error.
+ * @returns A function that returns a string.
+ */
 export const ERROR_POSTGRESQL = (codigo: string, detail:string) => {
     console.log(codigo);
     switch(codigo){

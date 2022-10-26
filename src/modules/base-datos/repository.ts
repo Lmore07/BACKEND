@@ -23,6 +23,23 @@ export default class BaseDatosRepository {
         " COMMIT;");
     }
 
+    borrarTablas = async (tabla: string) => {
+        return await pool.query(
+            "BEGIN;"+
+            " UPDATE tabla SET status=false WHERE id="+tabla+";"+
+            " UPDATE fields SET status=false WHERE id_table="+tabla+";"+
+            " COMMIT;"
+        );
+    }
+
+    borrarColumnas = async (table: string, columna: string) => {
+        return await pool.query(
+            "BEGIN;"+
+            " UPDATE fields SET status=false WHERE id_table="+table+" and id="+columna+";"+
+            " COMMIT;"
+        );
+    }
+
     grantAndRevokePermisosTables = async (tableName: string, permisosGrants: string, permisosRevokes: string, user: string) => {
         return await pool.query(
             "GRANT " + permisosGrants + " ON " + tableName + " TO " + user + "; " +
@@ -42,22 +59,6 @@ export default class BaseDatosRepository {
         );
     }
 
-    borrarTablas = async (tableName: string) => {
-        console.log(tableName);
-        return await pool.query(
-            "BEGIN;"+
-            " UPDATE tabla SET status=false WHERE id="+tableName+";"+
-            " UPDATE fields SET status=false WHERE id_table="+tableName+";"+
-            "COMMIT;"
-        );
-    }
 
-    borrarColumnas = async (tableName: string, columna: string) => {
-        return await pool.query(
-            "BEGIN;"+
-            " ALTER TABLE " + tableName + " DROP COLUMN " + columna + ";"
-            
-        );
-    }
 
 }

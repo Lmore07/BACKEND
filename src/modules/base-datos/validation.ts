@@ -29,13 +29,3 @@ export const ValidarPermisos = {
         user : validString()
     })
 }
-
-export const ValidarUpdateTabla = {
-    body:Joi.object({
-        table    : validString(),
-        columnas : Joi.object({
-            tipo : validString(),
-            nombre : validString()
-        })
-    })
-}

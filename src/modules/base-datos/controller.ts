@@ -22,16 +22,16 @@ export default class BaseDatosController{
         return bdTablasColumnas.crearTablasColumnas(req.body);
     }
 
-    otorgarPermisosTablas = async (req:Request) => {
-        return bdTablasColumnas.otorgarPermisosTablas(req.body);
-    }
-
     borrarTablas = async (req:Request) => {
         return bdTablasColumnas.borrarTablas(req.params.tableName);
     }
 
     borrarColumna = async (req:Request) => {
-        return bdTablasColumnas.borrarColumnas(req.params.tableName, req.params.columna);
+        return bdTablasColumnas.borrarColumnas(req.params.table, req.params.columna);
+    }
+
+    otorgarPermisosTablas = async (req:Request) => {
+        return bdTablasColumnas.otorgarPermisosTablas(req.body);
     }
 
 }

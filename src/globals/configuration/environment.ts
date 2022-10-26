@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+/* A way to get the environment variables. */
 export const HOST:string=process.env.HOST || 'localhost';
 export const USERDB:string=process.env.USERDB || 'postgres';
 export const PASSWORD:string=process.env.PASSWORD || '12345';

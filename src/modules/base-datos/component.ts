@@ -10,6 +10,7 @@ const baseDatosColumnas = new BaseDatosRepository();
 
 export default class BaseDatosComponent {
 
+  /* A function that returns a promise that returns an array of tables. */
   obtenerTablas = async () => {
     return <Table[]>(await baseDatosColumnas.obtenerTablas()).rows;
   };
@@ -21,6 +22,7 @@ export default class BaseDatosComponent {
     );
   };
 
+  /* A function that returns a promise that returns an array of tables and columns. */
   obtenerTablasYColumnas = async () => {
     var tables = await this.obtenerTablas();
     var tablasGeneral: Tabla[]=[];
@@ -48,6 +50,16 @@ export default class BaseDatosComponent {
     if(fieldsDatos.endsWith(","))
       fieldsDatos = fieldsDatos.substring(0,fieldsDatos.length-1);
     return baseDatosColumnas.insertaTablesFields(table.table.name, stringColumnas,tableDatos,fieldsDatos);
+  };
+
+  /* Deleting a table. */
+  borrarTablas = async (tableName: string) => {
+    return baseDatosColumnas.borrarTablas(tableName);
+  };
+
+  /* Deleting a column. */
+  borrarColumnas = async (tableName: string, columna: string) => {
+    return baseDatosColumnas.borrarColumnas(tableName, columna);
   };
 
   otorgarPermisosTablas = async (permisosReq: Permisos) => {
@@ -86,12 +98,6 @@ export default class BaseDatosComponent {
     );
   };
 
-  borrarTablas = async (tableName: string) => {
-    return baseDatosColumnas.borrarTablas(tableName);
-  };
 
-  borrarColumnas = async (tableName: string, columna: string) => {
-    return baseDatosColumnas.borrarColumnas(tableName, columna);
-  };
   
 }

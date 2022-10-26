@@ -22,6 +22,7 @@ router.get(
     }
 )
 
+/* This is a route that is used to get the tables and columns. */
 router.get(
     "/mostrar/tablas-columnas",
     tokenHelper.vericaExisteToken,
@@ -41,6 +42,7 @@ router.get(
 )
 
 
+/* This is a route that is used to get the tables. */
 router.get(
     "/mostrar/tablas",
     tokenHelper.vericaExisteToken,
@@ -54,6 +56,7 @@ router.get(
                 responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
             }
         } catch (error: any) {
+            console.log("entro")
             responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
         }
     }
@@ -98,25 +101,6 @@ router.post(
     }
 )
 
-router.post(
-    "/otorgar-permisos",
-    tokenHelper.vericaExisteToken,
-    validate(ValidarPermisos, {}, {}),
-    async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            var request: any = req;
-            if (await tokenHelper.verificaToken(request.token)) {
-                await baseDatosColumnasController.otorgarPermisosTablas(req);
-                responseHelper.success(req, res, { data: "PERMISO CONCEDIDO" }, "GESTION DE PERMISOS");
-            } else {
-                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
-            }
-        } catch (error: any) {
-            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
-        }
-    }
-)
-
 router.delete(
     "/borrar/tabla/:tableName",
     tokenHelper.vericaExisteToken,
@@ -136,7 +120,7 @@ router.delete(
 )
 
 router.delete(
-    "/borrar/columnas/:tableName&:columna",
+    "/borrar/columnas/:table&:columna",
     tokenHelper.vericaExisteToken,
     async (req: Request, res: Response, next: NextFunction) => {
         try {
@@ -152,5 +136,26 @@ router.delete(
         }
     }
 )
+
+router.post(
+    "/otorgar-permisos",
+    tokenHelper.vericaExisteToken,
+    validate(ValidarPermisos, {}, {}),
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            var request: any = req;
+            if (await tokenHelper.verificaToken(request.token)) {
+                await baseDatosColumnasController.otorgarPermisosTablas(req);
+                responseHelper.success(req, res, { data: "PERMISO CONCEDIDO" }, "GESTION DE PERMISOS");
+            } else {
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
+            }
+        } catch (error: any) {
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
+        }
+    }
+)
+
+
 
 export default router;

@@ -1,3 +1,5 @@
+/* Creating a enum with the name CodigosHttpEnum and the values ok, created, badRequest, unAuthorized,
+forbidden, notFound, internalServerError, notImplement, badGateway. */
 export const enum CodigosHttpEnum {
     ok                  = 200,
     created             = 201,
