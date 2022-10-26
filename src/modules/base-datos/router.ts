@@ -17,7 +17,7 @@ const tokenHelper = new TokenHelper();
 /* A route that is used to generate a token. */
 router.get(
     "/firmaToken",
-    async (req: any, res: Response, nex: NextFunction) => {
+    async (req: any, res: Response, next: NextFunction) => {
         tokenHelper.generaToken({bar:"fo"},req,res);
     }
 )
@@ -40,7 +40,6 @@ router.get(
         }
     }
 )
-
 
 /* This is a route that is used to get the tables. */
 router.get(
@@ -155,7 +154,5 @@ router.post(
         }
     }
 )
-
-
 
 export default router;
