@@ -6,7 +6,6 @@ import applyRoutes from "./modules/routes";
 import "./connections/mongoDBLogs";
 import express, { NextFunction, Request, Response } from "express";
 import { CodigosHttpEnum } from "./enum/codigosHttpEnum";
-import path from "path";
 
 const server = new Server();
 
@@ -38,14 +37,9 @@ const wrapperError = (
 
 const handleErrors = async (): Promise<void> => {
 
-  /* Serving the index.html file. */
-  server.app.get("/", (_req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, "..", "public"));
-  });
-
   /* This is a middleware that will be executed when the route is not found. */
   server.app.use((_req: Request, res: Response) =>
-    wrapperError(_req, res, CodigosHttpEnum.notFound, "No encontrado")
+    wrapperError(_req, res, CodigosHttpEnum.notFound, "Servicio no encontrado")
   );
 
   server.app.use(

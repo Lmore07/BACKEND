@@ -13,22 +13,22 @@ export const TRANSACCION_ERRONEA: string = 'No se pudo completar la transacción
 export const ERROR_POSTGRESQL = (codigo: string, detail:string) => {
     console.log(codigo);
     switch(codigo){
-        case CodigosPostgreEnum.columnaAmbigua: return 'Columna Ambigua, '+detail;
-        case CodigosPostgreEnum.columnaDuplicada: return 'Columna Duplicada, '+detail;
-        case CodigosPostgreEnum.columnaIndefinida: return 'Columna No Definida, '+detail;
-        case CodigosPostgreEnum.datosErroneos: return 'Datos Erroneos, '+detail;
+        case CodigosPostgreEnum.columnaAmbigua: return 'Columna Ambigua';
+        case CodigosPostgreEnum.columnaDuplicada: return 'Columna Duplicada';
+        case CodigosPostgreEnum.columnaIndefinida: return 'Columna No Definida';
+        case CodigosPostgreEnum.datosErroneos: return 'Datos Erroneos';
         case CodigosPostgreEnum.errorSintaxis: return 'Error en la sintaxis';
-        case CodigosPostgreEnum.falloConeccion: return 'Ocurrio un error en la conexion a la base de datos, '+detail;
-        case CodigosPostgreEnum.llaveForaneInvalida: return 'Llave Foranea no existe, '+detail;
-        case CodigosPostgreEnum.nombreInvalido: return 'Nombre no válido, '+detail;
-        case CodigosPostgreEnum.privilegioNoRevocado: return 'Privilegios no fueron revocados, '+detail;
-        case CodigosPostgreEnum.privilegiosInsuficientes: return 'Privilegios insuficiente, '+detail;
-        case CodigosPostgreEnum.tablaDuplicada: return 'Tabla duplicada, '+detail;
-        case CodigosPostgreEnum.tablaIndefinida: return 'Tabla no definida, '+detail;  
-        case CodigosPostgreEnum.falloAuth: return 'Las credenciales no funcionaron, '+detail;
-        case CodigosPostgreEnum.databaseNoExiste: return 'La base de datos especficadas no existe, '+detail;
+        case CodigosPostgreEnum.falloConeccion: return 'Ocurrio un error en la conexion a la base de datos';
+        case CodigosPostgreEnum.llaveForaneInvalida: return 'Llave Foranea no existe';
+        case CodigosPostgreEnum.nombreInvalido: return 'Nombre no válido';
+        case CodigosPostgreEnum.privilegioNoRevocado: return 'Privilegios no fueron revocados';
+        case CodigosPostgreEnum.privilegiosInsuficientes: return 'Privilegios insuficiente';
+        case CodigosPostgreEnum.tablaDuplicada: return 'Tabla duplicada';
+        case CodigosPostgreEnum.tablaIndefinida: return 'Tabla no definida';  
+        case CodigosPostgreEnum.falloAuth: return 'Las credenciales no funcionaron';
+        case CodigosPostgreEnum.databaseNoExiste: return 'La base de datos especficadas no existe';
         case CodigosPostgreEnum.uniqueViolation: return 'Se esta violando la clausula UNIQUE, '+detail;
-        case CodigosPostgreEnum.cardinalViolation: return 'Existe violacion de cardinalidad, '+detail;
+        case CodigosPostgreEnum.cardinalViolation: return 'Existe violacion de cardinalidad';
     }
     return "Error en base de datos"
 }
