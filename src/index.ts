@@ -9,7 +9,6 @@ import { CodigosHttpEnum } from "./enum/codigosHttpEnum";
 
 const server = new Server();
 
-/* It's a middleware that will be executed when the route is not found. */
 server.app.use("*", cors());
 server.app.use(bodyParser.json());
 server.app.use(express.json({ limit: "20mb" }));
@@ -34,6 +33,7 @@ const wrapperError = (
     tokenValido: false,
   });
 };
+
 
 const handleErrors = async (): Promise<void> => {
 

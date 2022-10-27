@@ -22,16 +22,3 @@ export interface Table {
     status      : boolean;
     created_At  : string;
 }
-
-export interface Permisos {
-    table    : string;
-    permisos : TipoPermiso;
-    user     : string;
-}
-
-export interface TipoPermiso {
-    select : boolean;
-    update : boolean;
-    insert : boolean;
-    delete : boolean;
-}

@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request, Router } from "express";
-import {ValidationError,validate} from "express-validation";
-import { ValidarInsercion, ValidarPermisos } from "./validation";
+import {validate} from "express-validation";
+import { ValidarInsercion } from "./validation";
 import BaseDatosController from "./controller";
 import { CodigosHttpEnum } from "../../enum/codigosHttpEnum";
 import { ERROR_POSTGRESQL } from "../../globals/configuration/mensajes";
@@ -153,7 +153,7 @@ router.delete(
     }
 )
 
-router.put(
+/*router.put(
     "/otorgar-permisos",
     tokenHelper.vericaExisteToken,
     validate(ValidarPermisos, {}, {}),
@@ -170,6 +170,6 @@ router.put(
             responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
         }
     }
-)
+)*/
 
 export default router;
