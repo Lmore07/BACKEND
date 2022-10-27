@@ -9,6 +9,12 @@ export default class BaseDatosRepository {
         );
     }
 
+    obtenerTablaByID = async (idTable:string) => {
+        return await pool.query(
+            "SELECT * FROM tabla where status=true and id="+idTable+";"
+        );
+    }
+
     obtenerColumnasByTable = async (idTable: string) => {
         return await pool.query(
             "select * from fields where id_table="+idTable+" and status=true;"

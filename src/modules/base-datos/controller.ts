@@ -1,4 +1,4 @@
-import { Request,Response } from "express"
+import { request, Request,Response } from "express"
 import { Tabla, Table } from "../../interfaces/bdTablasColumnas.interface";
 import BaseDatosComponent from "./component";
 
@@ -8,6 +8,10 @@ export default class BaseDatosController{
 
     obtenerTablas = async () => {
         return bdTablasColumnas.obtenerTablas();
+    }
+
+    obtenerDetalleTabla = async (req:Request) => {
+        return bdTablasColumnas.obtenerDetalleTabla(req.params.id);
     }
 
     obtenerColumnas = async (req:Request) => {

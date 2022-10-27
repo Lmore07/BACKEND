@@ -55,7 +55,24 @@ router.get(
                 responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
             }
         } catch (error: any) {
-            console.log("entro")
+            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
+        }
+    }
+)
+
+router.get(
+    "/mostrar/tablas/:id",
+    tokenHelper.vericaExisteToken,
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            var request: any = req;
+            if (await tokenHelper.verificaToken(request.token)) {
+                const data = await baseDatosColumnasController.obtenerDetalleTabla(req);
+                responseHelper.success(req, res, data, "Mostrar Tablas");
+            } else {
+                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
+            }
+        } catch (error: any) {
             responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
         }
     }
