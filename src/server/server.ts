@@ -19,7 +19,7 @@ class Server{
      * the server is up and running
      */
     listen(){
-        this.app.listen(this.port,() =>{
+        this.app.listen(this.port,this.host,() =>{
             console.log(`Servidor levantado http://${this.host}:${this.port}`);
         })
     }
