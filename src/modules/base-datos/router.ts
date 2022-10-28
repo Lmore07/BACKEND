@@ -61,7 +61,7 @@ router.get(
 )
 
 router.get(
-    "/mostrar/tablas/:id",
+    "/detalles/tablas/:id",
     tokenHelper.vericaExisteToken,
     async (req: Request, res: Response, next: NextFunction) => {
         try {
