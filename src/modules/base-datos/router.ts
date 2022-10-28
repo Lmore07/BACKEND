@@ -15,10 +15,10 @@ const tokenHelper = new TokenHelper();
 
 
 /* A route that is used to generate a token. */
-router.get(
+router.post(
     "/firmaToken",
     async (req: any, res: Response, next: NextFunction) => {
-        tokenHelper.generaToken({bar:"fo"},req,res);
+        tokenHelper.generaToken(req.body,req,res);
     }
 )
 
