@@ -1,5 +1,4 @@
-import { request, Request,Response } from "express"
-import { Tabla, Table } from "../../interfaces/bdTablasColumnas.interface";
+import { Request } from "express"
 import BaseDatosComponent from "./component";
 
 const bdTablasColumnas = new BaseDatosComponent();
@@ -33,6 +32,6 @@ export default class BaseDatosController{
     borrarColumna = async (req:Request) => {
         return bdTablasColumnas.borrarColumnas(req.params.idTable, req.params.idColumna);
     }
-    
+
 }
 

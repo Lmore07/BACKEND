@@ -1,5 +1,4 @@
 import pool from "../../connections/conexionPostgre";
-import { Tabla } from "../../interfaces/bdTablasColumnas.interface";
 
 export default class BaseDatosRepository {
 
