@@ -1,6 +1,5 @@
 import {
   Columna,
-  Permisos,
   Tabla,
   Table
 } from "../../interfaces/bdTablasColumnas.interface";
@@ -70,7 +69,7 @@ export default class BaseDatosComponent {
   };
 
   /* This function is used to grant or revoke permissions to a table. */
-  otorgarPermisosTablas = async (permisosReq: Permisos) => {
+  /*otorgarPermisosTablas = async (permisosReq: Permisos) => {
     var permisosGrants = "";
     var permisosRevokes = "";
     if (permisosReq.permisos.select) permisosGrants += "SELECT,";
@@ -104,6 +103,6 @@ export default class BaseDatosComponent {
       permisosRevokes,
       permisosReq.user
     );
-  };
+  };*/
   
 }

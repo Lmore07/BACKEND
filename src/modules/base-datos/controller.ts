@@ -34,9 +34,9 @@ export default class BaseDatosController{
         return bdTablasColumnas.borrarColumnas(req.params.idTable, req.params.idColumna);
     }
 
-    otorgarPermisosTablas = async (req:Request) => {
+    /*otorgarPermisosTablas = async (req:Request) => {
         return bdTablasColumnas.otorgarPermisosTablas(req.body);
-    }
+    }*/
 
 }
 
