@@ -5,12 +5,12 @@ export const ValidarInsercion={
     body : Joi.object({
         table  : Joi.object({
             name        : validString("Nombre"),
-            description : validString("Descripcion"),
+            description : validString("Descripcion de Tabla"),
             code        : validString("Codigo")
         }),
         fields : Joi.array().items({
             name        : validString("Nombre"),
-            description : validString("Descripcion"),
+            description : validString("Descripcion de Columna"),
             code        : validString("Codigo")
         })
     })
