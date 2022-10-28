@@ -28,6 +28,7 @@ export const ERROR_POSTGRESQL = (codigo: string, detail:string) => {
         case CodigosPostgreEnum.databaseNoExiste: return 'La base de datos especficadas no existe';
         case CodigosPostgreEnum.uniqueViolation: return 'Se esta violando la clausula UNIQUE, '+detail;
         case CodigosPostgreEnum.cardinalViolation: return 'Existe violacion de cardinalidad';
+        case CodigosPostgreEnum.foreignKeyViolation: return 'Existe violacion de las claves foraneas';
     }
     return "Error en base de datos"
 }

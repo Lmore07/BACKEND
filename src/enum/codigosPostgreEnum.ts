@@ -17,4 +17,5 @@ export const enum CodigosPostgreEnum{
     databaseNoExiste         = "3D000",
     uniqueViolation          = "23505",
     cardinalViolation        = "21000",
+    foreignKeyViolation      = "23503",
 }
