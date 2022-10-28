@@ -1,5 +1,5 @@
 import {Joi} from "express-validation"
-import {validNumber, validString} from "../../helpers/utilValidation"
+import {validString} from "../../helpers/utilValidation"
 
 export const ValidarInsercion={
     body : Joi.object({
