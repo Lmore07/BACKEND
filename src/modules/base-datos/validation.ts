@@ -6,8 +6,7 @@ export const ValidarInsercion={
         table  : Joi.object({
             name        : validString("Nombre"),
             description : validString("Descripcion"),
-            code        : validString("Codigo"),
-            company_id  : validNumber("Compañia ID")
+            code        : validString("Codigo")
         }),
         fields : Joi.array().items({
             name        : validString("Nombre"),

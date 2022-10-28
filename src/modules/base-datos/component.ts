@@ -44,6 +44,7 @@ export default class BaseDatosComponent {
   crearTablasColumnas = async (table: Tabla) => {
     var stringColumnas     = "";
     table.table.created_At = new Date().toLocaleString();
+    table.table.company_id = 1;
     table.table.status     = true;
     var fieldsDatos        = "";
     var tableDatos         = "'"+table.table.name+"','"+table.table.description+"',"+table.table.status+",'"+
