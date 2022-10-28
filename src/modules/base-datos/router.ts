@@ -153,23 +153,5 @@ router.delete(
     }
 )
 
-/*router.put(
-    "/otorgar-permisos",
-    tokenHelper.vericaExisteToken,
-    validate(ValidarPermisos, {}, {}),
-    async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            var request: any = req;
-            if (await tokenHelper.verificaToken(request.token)) {
-                await baseDatosColumnasController.otorgarPermisosTablas(req);
-                responseHelper.success(req, res, { data: "PERMISO CONCEDIDO" }, "GESTION DE PERMISOS");
-            } else {
-                responseHelper.fail(req, res, CodigosHttpEnum.unAuthorized, "TOKEN NO VALIDO",null);
-            }
-        } catch (error: any) {
-            responseHelper.fail(req, res, CodigosHttpEnum.badRequest, ERROR_POSTGRESQL(error.code,error.detail),null);
-        }
-    }
-)*/
 
 export default router;

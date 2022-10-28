@@ -32,6 +32,7 @@ export default class BaseDatosComponent {
     return tablasGeneral;
   };
 
+  /* Getting the table and the columns of the table. */
   obtenerDetalleTabla = async (idTable:string) => {
     let table = <Table>(await baseDatosColumnas.obtenerTablaByID(idTable)).rows[0];
     let fields = await this.obtenerColumnas(idTable);
@@ -68,41 +69,4 @@ export default class BaseDatosComponent {
     return baseDatosColumnas.borrarColumnas(idTable, idColumna);
   };
 
-  /* This function is used to grant or revoke permissions to a table. */
-  /*otorgarPermisosTablas = async (permisosReq: Permisos) => {
-    var permisosGrants = "";
-    var permisosRevokes = "";
-    if (permisosReq.permisos.select) permisosGrants += "SELECT,";
-    else permisosRevokes += "SELECT,";
-    if (permisosReq.permisos.update) permisosGrants += "UPDATE,";
-    else permisosRevokes += "UPDATE,";
-    if (permisosReq.permisos.delete) permisosGrants += "DELETE,";
-    else permisosRevokes += "DELETE,";
-    if (permisosReq.permisos.insert) permisosGrants += "INSERT,";
-    else permisosRevokes += "INSERT,";
-
-    if (permisosGrants.endsWith(","))
-      permisosGrants = permisosGrants.substring(0, permisosGrants.length - 1);
-    if (permisosRevokes.endsWith(","))
-        permisosRevokes = permisosRevokes.substring(0,permisosRevokes.length - 1);
-    if (permisosGrants != "" && permisosRevokes != "")
-      return baseDatosColumnas.grantAndRevokePermisosTables(
-        permisosReq.table,
-        permisosGrants,
-        permisosRevokes,
-        permisosReq.user
-      );
-    else if (permisosGrants != "")
-      return baseDatosColumnas.grantPermisosTables(
-        permisosReq.table,
-        permisosGrants,
-        permisosReq.user
-      );
-    return baseDatosColumnas.revokePermisosTables(
-      permisosReq.table,
-      permisosRevokes,
-      permisosReq.user
-    );
-  };*/
-  
 }

@@ -46,23 +46,4 @@ export default class BaseDatosRepository {
         );
     }
 
-    grantAndRevokePermisosTables = async (tableName: string, permisosGrants: string, permisosRevokes: string, user: string) => {
-        return await pool.query(
-            "GRANT " + permisosGrants + " ON " + tableName + " TO " + user + "; " +
-            "REVOKE " + permisosRevokes + " ON " + tableName + " FROM " + user + ";"
-        );
-    }
-
-    grantPermisosTables = async (tableName: string, permisosGrants: string, user: string) => {
-        return await pool.query(
-            "GRANT " + permisosGrants + " ON " + tableName + " TO " + user + ";"
-        );
-    }
-
-    revokePermisosTables = async (tableName: string, permisosRevokes: string, user: string) => {
-        return await pool.query(
-            "REVOKE " + permisosRevokes + " ON " + tableName + " FROM " + user + ";"
-        );
-    }
-
 }
